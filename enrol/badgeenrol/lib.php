@@ -139,12 +139,12 @@ class enrol_badgeenrol_plugin extends enrol_plugin {
         }
 
         $configbadges = explode('#', $instance->customtext1);
-        $access = $this->check_required_badges($USER->id, $configbadges);
 
-		if (empty($configbadges[0])) {
-            $output = '';
-            return $OUTPUT->box($output);
+        if (empty($configbadges[0])) {
+            return $OUTPUT->box(get_string('nobadgesconfigured', 'enrol_badgeenrol'), 'generalbox');
         }
+
+        $access = $this->check_required_badges($USER->id, $configbadges);
 
         if ($access) {
             $form = new enrol_badgeenrol_form(null, $instance);
