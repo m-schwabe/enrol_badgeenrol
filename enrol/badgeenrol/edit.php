@@ -79,8 +79,12 @@ if ($mform->is_cancelled()) {
         $DB->update_record('enrol', $instance);
 
     } else {
-        $studentid = $DB->get_field('role', 'id', array('archetype' => 'student'), MUST_EXIST);
-        $fields = array('name' => $data->name, 'courseid' => $data->courseid, 'roleid' => $studentid);
+        if (!empty($data->badges)) {
+            $badges = implode('#', $data->badges);
+        } else {
+            $badges = null;
+        }
+        $fields = array('name' => $data->name, 'courseid' => $data->courseid, 'roleid' => $data->roleid, 'customtext1' => $badges);
         $plugin->add_instance($course, $fields);
     }
 
