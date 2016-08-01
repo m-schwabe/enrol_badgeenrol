@@ -37,3 +37,4 @@ $string['badgeenrol:config'] = 'Add and configure a badge enrolment plugin insta
 $string['badgeenrol:manage'] = 'Manage a badge enrolment plugin instance';
 $string['badgeenrol:unenrolself'] = 'Unenrol yourself from a course when enroled by badge enrolment plugin';
 $string['badgeenrol:unenrol'] = 'Unenrol participants when they are enroled by badge enrolment plugin';
+$string['autoenrol'] = 'Automatically enrol when badge assigned.';
