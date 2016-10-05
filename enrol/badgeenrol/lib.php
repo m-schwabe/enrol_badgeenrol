@@ -24,6 +24,7 @@
  */
 
 require_once("$CFG->libdir/formslib.php");
+require_once($CFG->dirroot.'/lib/badgeslib.php');
 
 class enrol_badgeenrol_plugin extends enrol_plugin {
 
@@ -162,19 +163,33 @@ class enrol_badgeenrol_plugin extends enrol_plugin {
 
             $out = $OUTPUT->box(get_string('enrolinfo', 'enrol_badgeenrol'), 'generalbox');
 
-            foreach ($configbadges as $badgeid) {
+            list($insql, $params) = $DB->get_in_or_equal($configbadges);
+            $sql = "SELECT * FROM {badge} WHERE id $insql";
+            $badges = $DB->get_records_sql($sql, $params);
 
-                $badge = $DB->get_record('badge', array('id' => $badgeid), '*', MUST_EXIST);
+            foreach ($badges as $badge) {
+                if ($badge->type == BADGE_TYPE_COURSE) {
+                    $badgecoursecontext = context_course::instance($badge->courseid);
+                    if (!is_enrolled($badgecoursecontext)) {
+                        $url = '#';
+                    } else {
+                        $url = new moodle_url('/badges/view.php', array('type' => $badge->type, 'id' => $badge->courseid));
+                    }
+                    $imageurl = moodle_url::make_pluginfile_url($badgecoursecontext->id, 'badges', 'badgeimage', $badge->id, '/', 'f2', false);
+                } else {
+                    $imageurl = moodle_url::make_pluginfile_url($context->id, 'badges', 'badgeimage', $badge->id, '/', 'f2', false);
+                    $url = new moodle_url('/badges/view.php', array('type' => $badge->type));
+                }
 
-                $imageurl = moodle_url::make_pluginfile_url($context->id, 'badges', 'badgeimage', $badge->id, '/', 'f2', false);
                 // Appending a random parameter to image link to forse browser reload the image.
                 $imageurl->param('refresh', rand(1, 10000));
                 $attributes = array('src' => $imageurl, 'alt' => s($badge->name), 'class' => 'activatebadge');
 
                 $name = html_writer::tag('span', $badge->name, array('class' => 'badge-name'));
                 $image = html_writer::empty_tag('img', $attributes);
-                $url = new moodle_url('/badges/view.php', array('type' => 1));
+
                 $badgeout = html_writer::link($url, $image.$name, array('title' => $badge->name, 'class' => 'requiredbadge'));
+
                 $out .= $OUTPUT->box($badgeout, 'generalbox');
             }
 
