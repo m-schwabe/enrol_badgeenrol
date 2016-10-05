@@ -24,12 +24,12 @@
  */
 
 $string['pluginname'] = 'Badge Enrolment';
-$string['selectbadges'] = 'Required site badges for enrolment';
-$string['nobadgesfound'] = 'No available site badges found.';
-$string['nobadgesconfigured'] = 'No required site badges for badge enrolment configured. Please contact a course administrator.';
+$string['selectbadges'] = 'Required badges for enrolment';
+$string['nobadgesfound'] = 'No available badges found.';
+$string['nobadgesconfigured'] = 'No required badges for badge enrolment configured. Please contact a course administrator.';
 $string['role'] = 'Default assigned role';
-$string['enrolinfo'] = 'You need the following site badge(s) to enrol into this course: ';
-$string['accessgranted'] = 'You got all required site badges to enrol into this course!';
+$string['enrolinfo'] = 'You need the following badge(s) to enrol into this course: ';
+$string['accessgranted'] = 'You got all required badges to enrol into this course!';
 $string['enrolme'] = 'Enrol me';
 $string['unenrol'] = 'Unenrol user';
 $string['unenrolselfconfirm'] = 'Do you really want to unenrol yourself from course "{$a}"?';
