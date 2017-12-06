@@ -54,9 +54,11 @@ class enrol_badgeenrol_edit_form extends moodleform {
             $select->setMultiple(true);
 
             $roles = get_assignable_roles($context, ROLENAME_BOTH);
-            $studentid = $DB->get_field('role', 'id', array('archetype' => 'student'), MUST_EXIST);
+            $studentid = $DB->get_field('role', 'id', array('shortname' => 'student'), IGNORE_MISSING);
             $mform->addElement('select', 'roleid', get_string('role', 'enrol_badgeenrol'), $roles);
-            $mform->setDefault('roleid', $studentid);
+            if ($studentid) {
+				$mform->setDefault('roleid', $studentid);
+			}
 
         } else {
             $mform->addElement('static', 'nobadgesfound', '', get_string('nobadgesfound', 'enrol_badgeenrol'));
