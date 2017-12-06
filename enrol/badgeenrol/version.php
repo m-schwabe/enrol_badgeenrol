@@ -17,16 +17,15 @@
 /**
  * Version details.
  *
- * @package enrol_badgeenrol
- * @author Matthias Schwabe <mail@matthiasschwabe.de>
- * @copyright 2015 Matthias Schwabe
- * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
+ * @package    enrol_badgeenrol
+ * @copyright  2015 onwards Matthias Schwabe {@link http://matthiasschwa.be}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015120300;         // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2017120600;         // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2014050800;         // Requires this Moodle version (2.9).
 $plugin->component = 'enrol_badgeenrol'; // Full name of the plugin (used for diagnostics).
-$plugin->release   = '1.1 (2015120300)';
+$plugin->release   = '1.2 (2017120600)';
 $plugin->maturity  = MATURITY_STABLE;
