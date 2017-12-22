@@ -60,6 +60,9 @@ class enrol_badgeenrol_edit_form extends moodleform {
 				$mform->setDefault('roleid', $studentid);
 			}
 
+			$mform->addElement('checkbox', 'customint1', get_string('autoenrol', 'enrol_badgeenrol'));
+            $mform->setType('customint1', PARAM_INT);
+
         } else {
             $mform->addElement('static', 'nobadgesfound', '', get_string('nobadgesfound', 'enrol_badgeenrol'));
         }

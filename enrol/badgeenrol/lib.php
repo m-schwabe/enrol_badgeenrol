@@ -166,15 +166,22 @@ class enrol_badgeenrol_plugin extends enrol_plugin {
                 $badge = $DB->get_record('badge', array('id' => $badgeid), '*', MUST_EXIST);
 
                 $imageurl = moodle_url::make_pluginfile_url($context->id, 'badges', 'badgeimage', $badge->id, '/', 'f2', false);
-                // Appending a random parameter to image link to forse browser reload the image.
+                // Appending a random parameter to image link to force the browser to reload the image.
                 $imageurl->param('refresh', rand(1, 10000));
                 $attributes = array('src' => $imageurl, 'alt' => s($badge->name), 'class' => 'activatebadge');
 
                 $name = html_writer::tag('span', $badge->name, array('class' => 'badge-name'));
                 $image = html_writer::empty_tag('img', $attributes);
                 $url = new moodle_url('/badges/view.php', array('type' => 1));
-                $badgeout = html_writer::link($url, $image.$name, array('title' => $badge->name, 'class' => 'requiredbadge'));
-                $out .= $OUTPUT->box($badgeout, 'generalbox');
+
+				$badgeout = html_writer::link($url, $image.$name, array('title' => $badge->name, 'class' => 'requiredbadge'));
+
+				if ($issuedate = $this->get_badge_issue_info($USER->id, $badgeid)) {
+					$badgeout .= html_writer::tag('span', ' ('.get_string('issuedatetext', 'enrol_badgeenrol').
+						date(get_string('issuedateformat', 'enrol_badgeenrol') , $issuedate).')', array('class' => 'badge-issueinfo'));
+				}
+
+				$out .= $OUTPUT->box($badgeout, 'generalbox');
             }
 
         }
@@ -202,6 +209,16 @@ class enrol_badgeenrol_plugin extends enrol_plugin {
 
         return $access;
     }
+
+	public function get_badge_issue_info($userid, $badgeid) {
+		global $DB;
+
+		if ($record = $DB->get_record('badge_issued', array('badgeid' => $badgeid, 'userid' => $userid))) {
+			return $record->dateissued;
+		} else {
+			return false;
+		}
+	}
 
     /**
      * Enrol user to course

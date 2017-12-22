@@ -70,6 +70,13 @@ if ($mform->is_cancelled()) {
         $instance->name = $data->name;
         $instance->courseid = $data->courseid;
         $instance->roleid = $data->roleid;
+
+		if (!empty($data->customint1)) {
+            $instance->customint1 = $data->customint1;
+        } else {
+            $instance->customint1 = 0;
+        }
+
         if (!empty($data->badges)) {
             $instance->customtext1 = implode('#', $data->badges);
         } else {
@@ -83,8 +90,14 @@ if ($mform->is_cancelled()) {
         } else {
             $badges = null;
         }
+
         $fields = array('name' => $data->name, 'courseid' => $data->courseid, 'roleid' => $data->roleid, 'customtext1' => $badges);
-        $plugin->add_instance($course, $fields);
+
+		if (!empty($data->customint1)) {
+            $fields['customint1'] = $data->customint1;
+        }
+
+		$plugin->add_instance($course, $fields);
     }
 
     redirect($return);
