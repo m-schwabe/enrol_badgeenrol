@@ -22,7 +22,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("$CFG->libdir/formslib.php");
+require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
+require_once($CFG->libdir.'/formslib.php');
+require_once($CFG->libdir.'/adminlib.php');
 
 class enrol_badgeenrol_plugin extends enrol_plugin {
 

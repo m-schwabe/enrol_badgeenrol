@@ -5,3 +5,16 @@
 #page-enrol-index .badge-issueinfo {
 	color: green;
 }
+
+#page-admin-enrol-badgeenrol-about .about-box {
+	margin-top: 50px;
+}
+
+#page-admin-enrol-badgeenrol-about .about-text,
+#page-admin-enrol-badgeenrol-about .donation-text {
+	margin-bottom: 12px;
+}
+
+#page-admin-enrol-badgeenrol-about .donation-button {
+	margin-bottom: 8px;
+}

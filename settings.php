@@ -15,17 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details.
+ * Global settings for badge enrolment plugin
  *
  * @package    enrol_badgeenrol
  * @copyright  2015 onwards Matthias Schwabe {@link http://matthiasschwa.be}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2017122301;         // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014050800;         // Requires this Moodle version (2.9).
-$plugin->component = 'enrol_badgeenrol'; // Full name of the plugin (used for diagnostics).
-$plugin->release   = '1.2 (2017122300)';
-$plugin->maturity  = MATURITY_STABLE;
+if ($hassiteconfig) {
+
+	$ADMIN->add('enrolments', new admin_category('enrol_badgeenrol_folder',
+                get_string('pluginname', 'enrol_badgeenrol')));
+
+    $ADMIN->add('enrol_badgeenrol_folder', new admin_externalpage('enrol_badgeenrol_about',
+                get_string('about', 'enrol_badgeenrol'),
+                new moodle_url('/enrol/badgeenrol/about.php')));
+}
