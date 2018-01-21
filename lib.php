@@ -176,14 +176,15 @@ class enrol_badgeenrol_plugin extends enrol_plugin {
                 $image = html_writer::empty_tag('img', $attributes);
                 $url = new moodle_url('/badges/view.php', array('type' => 1));
 
-				$badgeout = html_writer::link($url, $image.$name, array('title' => $badge->name, 'class' => 'requiredbadge'));
+                $badgeout = html_writer::link($url, $image.$name, array('title' => $badge->name, 'class' => 'requiredbadge'));
 
-				if ($issuedate = $this->get_badge_issue_info($USER->id, $badgeid)) {
-					$badgeout .= html_writer::tag('span', ' ('.get_string('issuedatetext', 'enrol_badgeenrol').
-						date(get_string('issuedateformat', 'enrol_badgeenrol') , $issuedate).')', array('class' => 'badge-issueinfo'));
-				}
+                if ($issuedate = $this->get_badge_issue_info($USER->id, $badgeid)) {
+                    $badgeout .= html_writer::tag('span', ' ('.get_string('issuedatetext', 'enrol_badgeenrol').
+                        date(get_string('issuedateformat', 'enrol_badgeenrol') , $issuedate).')',
+                            array('class' => 'badge-issueinfo'));
+                }
 
-				$out .= $OUTPUT->box($badgeout, 'generalbox');
+                $out .= $OUTPUT->box($badgeout, 'generalbox');
             }
 
         }
@@ -212,15 +213,15 @@ class enrol_badgeenrol_plugin extends enrol_plugin {
         return $access;
     }
 
-	public function get_badge_issue_info($userid, $badgeid) {
-		global $DB;
+    public function get_badge_issue_info($userid, $badgeid) {
+        global $DB;
 
-		if ($record = $DB->get_record('badge_issued', array('badgeid' => $badgeid, 'userid' => $userid))) {
-			return $record->dateissued;
-		} else {
-			return false;
-		}
-	}
+        if ($record = $DB->get_record('badge_issued', array('badgeid' => $badgeid, 'userid' => $userid))) {
+            return $record->dateissued;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Enrol user to course

@@ -26,10 +26,13 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($hassiteconfig) {
 
-	$ADMIN->add('enrolments', new admin_category('enrol_badgeenrol_folder',
+    $ADMIN->add('enrolments', new admin_category('enrol_badgeenrol_folder',
                 get_string('pluginname', 'enrol_badgeenrol')));
 
     $ADMIN->add('enrol_badgeenrol_folder', new admin_externalpage('enrol_badgeenrol_about',
                 get_string('about', 'enrol_badgeenrol'),
                 new moodle_url('/enrol/badgeenrol/about.php')));
+
+    // To prevent creation of separate settings page.
+    $settings = null;
 }

@@ -57,10 +57,10 @@ class enrol_badgeenrol_edit_form extends moodleform {
             $studentid = $DB->get_field('role', 'id', array('shortname' => 'student'), IGNORE_MISSING);
             $mform->addElement('select', 'roleid', get_string('role', 'enrol_badgeenrol'), $roles);
             if ($studentid) {
-				$mform->setDefault('roleid', $studentid);
-			}
+                $mform->setDefault('roleid', $studentid);
+            }
 
-			$mform->addElement('checkbox', 'customint1', get_string('autoenrol', 'enrol_badgeenrol'));
+            $mform->addElement('checkbox', 'customint1', get_string('autoenrol', 'enrol_badgeenrol'));
             $mform->setType('customint1', PARAM_INT);
 
         } else {

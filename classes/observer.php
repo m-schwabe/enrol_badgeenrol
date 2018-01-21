@@ -23,6 +23,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
+
 class enrol_badgeenrol_observer {
     /**
      * Observer function to handle the assessable_uploaded event in mod_assign.
@@ -40,7 +41,7 @@ class enrol_badgeenrol_observer {
         // It would be better if the enrol plugin used it's own tables so we could search for plugins relevant
         // to this badge, instead we populate an array to use in case multiple badges are assigned at the same time.
         if (empty($enrolmentplugins)) {
-            // get all enrolment plugins
+            // Get all enrolment plugins.
             $enrolmentplugins = $DB->get_records('enrol', array('enrol' => 'badgeenrol', 'customint1' => 1));
         }
         foreach ($enrolmentplugins as $ep) {
@@ -53,8 +54,9 @@ class enrol_badgeenrol_observer {
                             if ($badge == $badgeid) {
                                 continue;
                             }
-                            // check the user has this badge - if not, prevent enrolment.
-                            if (!$DB->record_exists('badge_issued', array('badgeid' => $badge, 'userid' => $eventdata['relateduserid']))) {
+                            // Check the user has this badge - if not, prevent enrolment.
+                            if (!$DB->record_exists('badge_issued', array('badgeid' => $badge,
+                                'userid' => $eventdata['relateduserid']))) {
                                 return; // Stop here and don't enrol user, more badges required before enrolment can be given.
                             }
                         }
