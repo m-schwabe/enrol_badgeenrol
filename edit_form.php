@@ -38,17 +38,17 @@ class enrol_badgeenrol_edit_form extends moodleform {
 
         $mform->addElement('header', 'header', get_string('pluginname', 'enrol_badgeenrol'));
 
-        $mform->addElement('text', 'name', get_string('custominstancename', 'enrol'));
-        $mform->setType('name', PARAM_TEXT);
-
         if ($badges = $DB->get_records('badge', array('type' => 1))) {
+
+            $mform->addElement('text', 'name', get_string('custominstancename', 'enrol'));
+            $mform->setType('name', PARAM_TEXT);
+
             $badgeslist = array();
             foreach ($badges as $badge) {
                 if ($badge->status == 1 or $badge->status == 3) {
                     $badgeslist[$badge->id] = $badge->name;
                 }
             }
-
             $select = $mform->addElement('select', 'badges', get_string('selectbadges', 'enrol_badgeenrol'),
                 $badgeslist, array('size' => '12'));
             $select->setMultiple(true);
@@ -63,16 +63,17 @@ class enrol_badgeenrol_edit_form extends moodleform {
             $mform->addElement('checkbox', 'customint1', get_string('autoenrol', 'enrol_badgeenrol'));
             $mform->setType('customint1', PARAM_INT);
 
+            $this->add_action_buttons(true, ($instance->id ? null : get_string('addinstance', 'enrol')));
+
         } else {
             $mform->addElement('static', 'nobadgesfound', '', get_string('nobadgesfound', 'enrol_badgeenrol'));
+            $mform->addElement('cancel');
         }
 
         $mform->addElement('hidden', 'id');
         $mform->setType('id', PARAM_INT);
         $mform->addElement('hidden', 'courseid');
         $mform->setType('courseid', PARAM_INT);
-
-        $this->add_action_buttons(true, ($instance->id ? null : get_string('addinstance', 'enrol')));
 
         $this->set_data($instance);
     }
