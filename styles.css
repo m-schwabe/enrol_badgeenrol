@@ -18,3 +18,7 @@
 #page-admin-enrol-badgeenrol-about .donation-button {
     margin-bottom: 8px;
 }
+
+#page-enrol-index .badge-name {
+    margin-left: 4px;
+}
