@@ -15,17 +15,29 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details.
+ * Privacy Subsystem implementation for badge enrol plugin.
  *
  * @package    enrol_badgeenrol
  * @copyright  2015 onwards Matthias Schwabe {@link http://matthiasschwa.be}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace enrol_badgeenrol\privacy;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2018072700;         // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2018051700;         // Requires this Moodle version (3.5).
-$plugin->component = 'enrol_badgeenrol'; // Full name of the plugin (used for diagnostics).
-$plugin->release   = '1.3 (2018051700)';
-$plugin->maturity  = MATURITY_STABLE;
+/**
+ * Privacy Subsystem for enrol_badgeenrol implementing null_provider.
+ */
+class provider implements \core_privacy\local\metadata\null_provider {
+
+    /**
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
+     *
+     * @return  string
+     */
+    public static function get_reason() : string {
+        return 'privacy:metadata';
+    }
+}
